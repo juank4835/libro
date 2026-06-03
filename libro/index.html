@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arregla el dinero, arregla el mundo</title>
+<style>
+:root {
+  --bg: #1c1c1c;
+  --surface: #262626;
+  --ink: #ebe9e4;
+  --ink-soft: #9a988f;
+  --rule: #3a3a38;
+  --verde: #FF7A18;
+  --rojo: #E8552D;
+  --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 19px; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+.page { max-width: 760px; margin: 0 auto; padding: 5rem 1.5rem 8rem; }
+
+.cover { text-align: center; margin-bottom: 4.5rem; }
+.cover .kicker {
+  font-size: 0.78rem; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--verde); margin-bottom: 1.4rem;
+}
+.cover h1 {
+  font-size: 3rem; font-weight: 400; line-height: 1.1;
+  letter-spacing: -0.015em; margin-bottom: 0.8rem;
+}
+.cover .sub {
+  font-size: 1.2rem; font-style: italic; color: var(--ink-soft);
+  max-width: 30rem; margin: 0 auto;
+}
+.ornament { text-align: center; color: var(--verde); letter-spacing: 0.5em; margin: 2.5rem 0 4rem; }
+
+.bloque { margin-bottom: 3.2rem; }
+.bloque-tit {
+  font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-soft); border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.6rem; margin-bottom: 1.4rem;
+}
+.bloque-desc {
+  font-size: 0.96rem; font-style: italic; color: var(--ink-soft);
+  margin-bottom: 1.6rem; margin-top: -0.8rem;
+}
+
+.cap { display: flex; align-items: baseline; gap: 0.9rem; padding: 0.55rem 0; }
+.cap .num {
+  font-size: 0.85rem; color: var(--ink-soft); min-width: 1.6rem;
+  font-variant-numeric: tabular-nums;
+}
+.cap a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.cap a:hover { border-bottom-color: var(--verde); }
+.cap.pend .titulo { color: var(--ink-soft); opacity: 0.65; }
+.cap .estado {
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  margin-left: auto; padding-left: 1rem; white-space: nowrap;
+}
+.cap .estado.ok { color: var(--verde); }
+.cap .estado.prog { color: #d9a441; }
+.cap .estado.todo { color: var(--ink-soft); opacity: 0.5; }
+.cap .grav {
+  font-size: 0.72rem; color: var(--rojo); margin-left: 0.5rem; font-style: italic;
+}
+
+.cimiento {
+  margin-top: 1.6rem; padding-top: 1.4rem;
+  border-top: 1px dashed var(--rule);
+}
+.cimiento .cim-tag {
+  display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--verde); margin-bottom: 0.5rem;
+}
+.cimiento .cim-cap { display: flex; align-items: baseline; gap: 0.9rem; }
+.cimiento .cim-cap a {
+  color: var(--ink); text-decoration: none; font-size: 1.05rem;
+  border-bottom: 1px solid transparent; transition: border-color 0.2s;
+}
+.cimiento .cim-cap a:hover { border-bottom-color: var(--verde); }
+.cimiento .cim-desc {
+  font-size: 0.9rem; font-style: italic; color: var(--ink-soft); margin-top: 0.4rem;
+}
+.cimiento .estado {
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  margin-left: auto; padding-left: 1rem; white-space: nowrap; color: var(--verde);
+}
+
+.bisagra {
+  margin: 3rem 0; padding: 1.8rem 1.8rem;
+  text-align: center;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.bisagra .bis-tag {
+  display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 0.7rem;
+}
+.bisagra a {
+  color: var(--ink); text-decoration: none; font-size: 1.25rem; font-style: italic;
+  border-bottom: 1px solid transparent; transition: border-color 0.2s;
+}
+.bisagra a:hover { border-bottom-color: var(--verde); }
+.bisagra .bis-estado {
+  display: block; margin-top: 0.7rem;
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-soft); opacity: 0.5;
+}
+
+.cadena {
+  margin-top: 3rem; padding: 1.6rem 1.8rem;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  font-size: 0.96rem; color: var(--ink-soft); line-height: 1.7;
+}
+.cadena .tag {
+  display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 0.7rem;
+}
+.cadena em { color: var(--ink); font-style: normal; }
+
+@media (max-width: 640px) {
+  html { font-size: 17px; }
+  .page { padding: 3rem 1.2rem 5rem; }
+  .cover h1 { font-size: 2.2rem; }
+  .cap .estado { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="cover">
+    <div class="kicker">Teoría monetaria austriaca</div>
+    <h1>Arregla el dinero,<br>arregla el mundo</h1>
+    <p class="sub">Avanzamos hacia el abismo porque las señales que deberían guiarnos han sido falsificadas</p>
+  </header>
+
+  <div class="ornament">• • •</div>
+
+  <!-- BLOQUE I -->
+  <section class="bloque">
+    <div class="bloque-tit">Bloque I · Fundamentos</div>
+    <p class="bloque-desc">Qué es el dinero y con qué criterio se juzga.</p>
+
+    <div class="cap">
+      <span class="num">1</span>
+      <a href="dinero-como-informacion.html" class="titulo">El dinero como sistema que transmite información</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">2</span>
+      <a href="criterio-de-evaluacion.html" class="titulo">El criterio de evaluación</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">3</span>
+      <a href="tres-regimenes.html" class="titulo">Los tres regímenes</a>
+      <span class="estado ok">Completo</span>
+    </div>
+  </section>
+
+  <!-- BLOQUE II -->
+  <section class="bloque">
+    <div class="bloque-tit">Bloque II · Conceptos previos</div>
+    <p class="bloque-desc">Las herramientas que hacen inteligible todo lo demás.</p>
+
+    <div class="cap">
+      <span class="num">4</span>
+      <a href="preferencia-temporal.html" class="titulo">La preferencia temporal</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">5</span>
+      <a href="ahorro-real.html" class="titulo">El ahorro real</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">6</span>
+      <a href="cuando-un-precio-dice-la-verdad.html" class="titulo">Cuándo un precio dice la verdad</a>
+      <span class="estado ok">Completo</span>
+    </div>
+  </section>
+
+  <!-- BLOQUE III -->
+  <section class="bloque">
+    <div class="bloque-tit">Bloque III · La anatomía de la falsificación</div>
+    <p class="bloque-desc">Pieza por pieza, cómo el daño se encadena por dentro del dinero, por orden de gravedad.</p>
+
+    <div class="cap">
+      <span class="num">7</span>
+      <a href="tasa-de-interes.html" class="titulo">La tasa de interés</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">8</span>
+      <a href="asignacion-intertemporal.html" class="titulo">La asignación intertemporal</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">9</span>
+      <a href="deteccion-mala-inversion.html" class="titulo">La detección de mala inversión</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">10</span>
+      <a href="precios-relativos.html" class="titulo">Los precios relativos</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">11</span>
+      <a href="predictibilidad-estructural.html" class="titulo">La predictibilidad del dinero</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">12</span>
+      <a href="poder-adquisitivo.html" class="titulo">El poder adquisitivo del dinero</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cap">
+      <span class="num">13</span>
+      <a href="discriminacion-bancaria.html" class="titulo">La discriminación bancaria</a>
+      <span class="estado ok">Completo</span>
+    </div>
+    <div class="cimiento">
+      <span class="cim-tag">La que las sostiene a todas</span>
+      <div class="cim-cap">
+        <a href="auditabilidad.html">La auditabilidad del dinero</a>
+        <span class="estado">Completo</span>
+      </div>
+      <p class="cim-desc">No una octava pieza, sino el suelo bajo las siete: si la base no se puede verificar, ninguna de las demás piezas dice la verdad.</p>
+    </div>
+  </section>
+
+  <!-- BISAGRA: del dinero honesto a las consecuencias -->
+  <div class="bisagra">
+    <span class="bis-tag">Antes de seguir · la pregunta inevitable</span>
+    <a href="por-que-no-volver-al-oro.html">¿Y por qué no volver al oro?</a>
+    <span class="bis-estado">Por escribir</span>
+  </div>
+
+  <!-- BLOQUE IV -->
+  <section class="bloque">
+    <div class="bloque-tit">Bloque IV · Las consecuencias</div>
+    <p class="bloque-desc">La tesis aterrizada, de lo más visible a lo más profundo.</p>
+
+    <div class="cap pend">
+      <span class="num">14</span>
+      <span class="titulo">La deforestación</span>
+      <span class="estado todo">Por escribir</span>
+    </div>
+    <div class="cap pend">
+      <span class="num">15</span>
+      <span class="titulo">La degradación alimentaria</span>
+      <span class="estado todo">Por escribir</span>
+    </div>
+    <div class="cap pend">
+      <span class="num">16</span>
+      <span class="titulo">La financiación de guerras</span>
+      <span class="estado todo">Por escribir</span>
+    </div>
+    <div class="cap pend">
+      <span class="num">17</span>
+      <span class="titulo">Las crisis financieras contemporáneas</span>
+      <span class="estado todo">Por escribir</span>
+    </div>
+    <div class="cap pend">
+      <span class="num">18</span>
+      <span class="titulo">El efecto sobre la preferencia temporal de la humanidad</span>
+      <span class="estado todo">Por escribir</span>
+    </div>
+    <div class="cap pend">
+      <span class="num">19</span>
+      <span class="titulo">Arregla el dinero, arregla el mundo</span>
+      <span class="estado todo">Por escribir</span>
+    </div>
+  </section>
+
+  <div class="cadena">
+    <span class="tag">La cadena causal de la anatomía</span>
+    <em>La tasa miente.</em> Los empresarios asignan mal. El sistema no detecta el error. Los precios relativos se distorsionan. Todo opera sobre un horizonte impredecible. El ciudadano percibe inflación. La banca imprudente no se disciplina. El régimen no se audita.
+  </div>
+
+</div>
+</body>
+</html>
